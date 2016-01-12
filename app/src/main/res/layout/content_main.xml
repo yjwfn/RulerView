@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,10 +10,89 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.lw.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:orientation="vertical"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.lw.widget.RulerView
+            android:id="@+id/ruler_view"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="top"
+            app:begin="0"
+            app:end="100"
+            app:textColor="@android:color/holo_blue_dark"
+            app:selectedColor="@android:color/holo_blue_bright"
+            app:indicateColor="@android:color/holo_blue_dark"
+            app:indicatePadding="3dp"
+            app:textSize="18sp"
+            app:indicateWidth="5dp"
+            />
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimary"
+            ></View>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:orientation="vertical"
+        >
+        <EditText
+            android:id="@+id/et_pos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="position"
+            android:text="0"
+            />
+
+        <EditText
+            android:id="@+id/et_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="value"
+            />
+
+        <Button
+            android:id="@+id/btn_scroll_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="smooth scroll to position"
+            />
+
+
+        <Button
+            android:id="@+id/btn_scroll_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="smooth scroll to value"
+            />
+
+        <Button
+            android:id="@+id/btn_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TOP"
+            />
+
+        <Button
+            android:id="@+id/btn_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BOTTOM"
+            />
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
