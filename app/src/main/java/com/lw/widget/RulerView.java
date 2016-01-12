@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.annotation.IntegerRes;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -56,7 +57,6 @@ public class RulerView extends View {
     private float mTextSize;
 
     private int mIndicateColor;
-
 
     private OnScaleListener mListener;
 
@@ -316,6 +316,11 @@ public class RulerView extends View {
     }
 
 
+    private void refreshValues(){
+        mInnerWidth = (mEndRange - mBeginRange) * getIndicateWidth();
+        invalidateView();
+
+    }
 
     private int getIndicateWidth(){
         return mIndicateWidth + mIndicatePadding + mIndicatePadding;
@@ -510,4 +515,30 @@ public class RulerView extends View {
 
     }
 
+    public void setIndicateWidth(@IntegerRes int indicateWidth){
+        this.mIndicateWidth = indicateWidth;
+        refreshValues();
+    }
+
+    public void setIndicatePadding(@IntegerRes int indicatePadding){
+        this.mIndicatePadding = indicatePadding;
+        refreshValues();    }
+
+    public void setWithText(boolean withText){
+        this.mIsWithText = withText;
+        refreshValues();
+    }
+
+    public void setAutoAlign(boolean autoAlign){
+        this.mIsAutoAlign = autoAlign;
+        refreshValues();
+    }
+
+    public boolean isWithText(){
+        return mIsWithText;
+    }
+
+    public boolean isAutoAlign(){
+        return mIsAutoAlign;
+    }
 }

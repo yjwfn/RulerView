@@ -5,11 +5,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.lw.widget.RulerView;
@@ -44,11 +49,14 @@ public class MainActivity extends AppCompatActivity {
         final RulerView rulerView = (RulerView) findViewById(R.id.ruler_view);
         final EditText positionEditText = (EditText) findViewById(R.id.et_pos);
         final EditText valueEditText = (EditText) findViewById(R.id.et_value);
-        Button  scrollPosition = (Button) findViewById(R.id.btn_scroll_position);
-        Button  scrollVal = (Button) findViewById(R.id.btn_scroll_value);
+        final EditText widthEditText = (EditText) findViewById(R.id.et_indicate_width);
+        final EditText paddingEditTExt = (EditText) findViewById(R.id.et_indicate_padding);
+        CheckBox    withText = (CheckBox) findViewById(R.id.cb_with_text);
+        CheckBox    autoAlign = (CheckBox) findViewById(R.id.cb_auto_align);
+
+
         Button topBtn = (Button) findViewById(R.id.btn_top);
         Button bottomBtn = (Button) findViewById(R.id.btn_bottom);
-
 
         //init
         rulerView.post(new Runnable() {
@@ -56,24 +64,6 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 int position = Integer.valueOf(positionEditText.getText().toString());
                 rulerView.smoothScrollTo(position);
-            }
-        });
-
-        //scroll to position
-        scrollPosition.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = Integer.valueOf(positionEditText.getText().toString());
-                rulerView.smoothScrollTo(position);
-            }
-        });
-
-        //scroll to value
-        scrollVal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int value = Integer.valueOf(valueEditText.getText().toString());
-                rulerView.smoothScrollToValue(value);
             }
         });
 
@@ -96,11 +86,107 @@ public class MainActivity extends AppCompatActivity {
         rulerView.setOnScaleListener(new RulerView.OnScaleListener() {
             @Override
             public void onScaleChanged(int scale) {
-                valueEditText.setText(scale + "");
-                positionEditText.setText((scale ) + "");
+
             }
         });
 
+
+        positionEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s))
+                    return;
+
+                rulerView.smoothScrollTo(Integer.valueOf(s.toString()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        valueEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s))
+                    return;
+
+                rulerView.smoothScrollTo(Integer.valueOf(s.toString()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        widthEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s))
+                    return;
+
+                rulerView.setIndicateWidth(Integer.valueOf(s.toString()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        paddingEditTExt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(TextUtils.isEmpty(s))
+                    return ;
+
+                rulerView.setIndicatePadding(Integer.valueOf(s.toString()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
+        withText.setChecked(rulerView.isWithText());
+        autoAlign.setChecked(rulerView.isAutoAlign());
+
+        withText.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                rulerView.setWithText(isChecked);
+            }
+        });
+
+        autoAlign.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                rulerView.setAutoAlign(isChecked);
+            }
+        });
     }
 
     @Override
