@@ -108,6 +108,7 @@ public class RulerView extends View {
     private void initValue() {
 
         mOverScroller = new OverScroller(getContext());
+        setOverScrollMode(OVER_SCROLL_ALWAYS);
 
         final ViewConfiguration configuration = ViewConfiguration.get(getContext());
         mTouchSlop = configuration.getScaledTouchSlop();
